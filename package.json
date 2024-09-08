@@ -1,0 +1,33 @@
+{
+  "name": "api_grupo10",
+  "version": "1.0.0",
+  "description": "Api Node - Laboratorio de Computacion IV",
+  "main": "app.js",
+  "scripts": {
+    "test": "-",
+    "start" : "node app",
+    "lint" : "npx standard",
+    "lint:fix" : "npx standard --fix",
+    "prepare": "husky"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/pedroweyland/api_grupo10.git"
+  },
+  "author": "Daniel D'onofrio - Gabriel Ponce - Galo Santopietro - Pedro Weyland",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/pedroweyland/api_grupo10/issues"
+  },
+  "homepage": "https://github.com/pedroweyland/api_grupo10#readme",
+  "dependencies": {
+    "axios": "^1.7.7",
+    "dotenv": "^16.4.5",
+    "express": "^4.19.2"
+  },
+  "devDependencies": {
+    "husky": "^9.1.5",
+    "standard": "^17.1.0",
+    "nodemon": "^3.1.4"
+  }
+}
