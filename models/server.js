@@ -19,10 +19,8 @@ class Server {
 
       // Gabriel Ponce
 
-      // Galo Santopietro
-
-      // Pedro Weyland
-
+      // Pedro Weyland - Galo Santopietro
+      this.app.use('/api/v1/movie', require('../routes/movie'))
     }
   
     listen () {
