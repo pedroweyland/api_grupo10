@@ -34,23 +34,23 @@ const getMovieDetails=(req=request, res=response) => {
   })
     .then((response) => {
       const { data } = response
-
       res.status(200).json({
         msg: '200K',
         data
       })
     })
     .catch((error) => {
-      res.status(400).json({
-        msg: '400K',
-        error
-      })
-    })
-    .catch((error) => {
-      res.status(404).json({
-        msg: '404K',
-        error
-      })
+      if ((error.response.status === 404)) {
+        res.status(404).json({
+          statusCode: 404,
+          messege: 'NOT FOUND'
+        })
+      } else {
+        res.status(400).json({
+          statusCode: 400,
+          messege: 'BAD REQUEST'
+        })
+      }
     })
 }
 
