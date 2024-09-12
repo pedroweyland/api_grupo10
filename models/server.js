@@ -14,11 +14,10 @@ class Server {
   
     rutas () {
       //this.app.use('/api/v1/peliculas', require('../routes/peliculas')) // Integrante 1
-      
       // Daniel D'Onofrio
 
       // Gabriel Ponce
-
+      
       // Galo Santopietro
 
       // Pedro Weyland
