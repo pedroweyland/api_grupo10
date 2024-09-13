@@ -22,10 +22,12 @@ const getProximamente = (req = request, res = response) => {
     })
     .catch((error) => {
       // Si ocurre un Error lo atrapo y le mando al usuario el codigo de error y lo que sucedio
-      res.status(400).json({
-        statusCode: 400,
-        messege: 'Bad Request - Error inesperado'
-      })
+      if (error.response.status === 404) {
+        res.status(400).json({
+          statusCode: 400,
+          messege: 'Bad Request - Error inesperado'
+        })
+      }
     })
 }
 
