@@ -3,14 +3,37 @@ const { request, response } = require('express')
 
 // Funcion para tener una lista de las peliculas que van a salir proximamente
 const getUpcoming = (req = request, res = response) => {
-  axios.get(`${process.env.url}/upcoming`, {
+  // Preparo mis posibles query params que puede ingresar mi usuario
+  const { page = '', language = '' } = req.query
+
+  // Creo un array para guardar todos las querys que mando el usuario
+  const querysParams = []
+
+  if (page) {
+    querysParams.push(`page=${page}`)
+  }
+  if (language) {
+    querysParams.push(`language=${language}`)
+  }
+  // 'filter' va ser una concatenacion de todos los querysParamas, si no hay querysParams queda vacio
+  const filter = querysParams.length > 0 ? `?${querysParams.join('&')}` : ''
+
+  axios.get(`${process.env.url}/movie/upcoming${filter}`, {
     params: {
       api_key: process.env.API_KEY
+
     }
   })
     .then((response) => {
       // Si sale todo bien le entrego al usuario la lista con un condigo 200K
       const { data } = response
+
+      // Lanzo excepcion cuando no hay datos, ej: pone un pagina inexistente
+      if (data.results.length === 0) {
+        const error = new Error('Not Found')
+        error.status = 404
+        throw error
+      }
 
       res.status(200).json({
         status: 200,
@@ -18,11 +41,15 @@ const getUpcoming = (req = request, res = response) => {
       })
     })
     .catch((error) => {
-      // Si ocurre un Error lo atrapo y le mando al usuario el codigo de error y lo que sucedio
-      if (error.response.status === 404) {
+      if ((error.status === 404)) {
+        res.status(404).json({
+          status: 404,
+          messege: 'NOT FOUND - Data not found'
+        })
+      } else {
         res.status(400).json({
           status: 400,
-          messege: 'Bad Request - Unexpected error'
+          messege: 'BAD REQUEST - Unexpected error'
         })
       }
     })
@@ -32,7 +59,7 @@ const getUpcoming = (req = request, res = response) => {
 const getMovieCredits = (req = request, res = response) => {
   const { idMovie = '' } = req.params
 
-  axios.get(`${process.env.url}/${idMovie}/credits`, {
+  axios.get(`${process.env.url}/movie/${idMovie}/credits`, {
     params: {
       api_key: process.env.API_KEY
     }
@@ -47,7 +74,7 @@ const getMovieCredits = (req = request, res = response) => {
     })
     .catch((error) => {
       // Si ocurre un Error lo atrapo y le mando al usuario el codigo de error y lo que sucedio
-      if ((error.response.status === 404)) {
+      if ((error.status === 404)) {
         res.status(404).json({
           status: 404,
           messege: 'NOT FOUND - Movie not found'
