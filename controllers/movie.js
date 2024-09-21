@@ -15,7 +15,7 @@ const getPopularMoviesList = (req = request, res = response) => {
 
   const filter = querysParams.length > 0 ? `?${querysParams.join('&')}` : ''
 
-  axios.get(process.env.url + 'popular' + filter, {
+  axios.get(process.env.url + 'movie/popular' + filter, {
     params: {
       api_key: process.env.API_KEY
     }
@@ -39,7 +39,7 @@ const getPopularMoviesList = (req = request, res = response) => {
 const getMovieDetails = (req = request, res = response) => {
   const { idMovie = '' } = req.params
 
-  axios.get(process.env.url + idMovie, {
+  axios.get(process.env.url + 'movie/' + idMovie, {
     params: {
       api_key: process.env.API_KEY
     }
