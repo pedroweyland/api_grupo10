@@ -1,6 +1,6 @@
 const axios = require('axios')
 const { request, response } = require('express')
-
+// Integrante Galo Santopietro
 const getPopularMoviesList = (req = request, res = response) => {
   const { page = '', language = '' } = req.query
 
