@@ -3,7 +3,21 @@ const { request, response } = require('express')
 
 const url = 'https://api.themoviedb.org/3/movie/'
 const getPopularMoviesList=(req=request, res=response) => {
-  axios.get(url + 'popular', {
+  
+  const { page = '', language = '' } = req.query
+
+  const querysParams = []
+
+  if (page) {
+    querysParams.push(`page=${page}`)
+  }
+  if (language) {
+    querysParams.push(`language=${language}`)
+  }
+
+  const filter = querysParams.length > 0 ? `?${querysParams.join('&')}` : ''
+
+  axios.get(url + 'popular' +filter, {
     params: {
       api_key: process.env.API_KEY
     }
