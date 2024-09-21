@@ -24,8 +24,10 @@ EndPoint upcoming (GET)
     - page: Se puede pasar por parametro a que pagina queres acceder de toda la lista
         ej: /api/v1/movies/upcoming?page=3
         (Si pone una pagina inexistente lanzara excepcion)
-    - language: Se puede pasar por parametro el idioma que se quiere que se muestre la informacion
+    - language: Se puede pasar por parametro el idioma que se quiere que se muestre la informacion 
         ej: /api/v1/movies/upcoming?language=es
+        ej: /api/v1/movies/upcoming?language=en-US
+        ej: /api/v1/movies/upcoming?language=fr
 
     Posibles Status Code:
     - 200: OK (Cuando la lista es obtenida correctamente)
