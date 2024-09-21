@@ -1,9 +1,7 @@
 const axios = require('axios')
 const { request, response } = require('express')
 
-const url = 'https://api.themoviedb.org/3/movie/'
-const getPopularMoviesList=(req=request, res=response) => {
-  
+const getPopularMoviesList = (req = request, res = response) => {
   const { page = '', language = '' } = req.query
 
   const querysParams = []
@@ -17,7 +15,7 @@ const getPopularMoviesList=(req=request, res=response) => {
 
   const filter = querysParams.length > 0 ? `?${querysParams.join('&')}` : ''
 
-  axios.get(url + 'popular' +filter, {
+  axios.get(process.env.url + 'popular' + filter, {
     params: {
       api_key: process.env.API_KEY
     }
@@ -26,22 +24,22 @@ const getPopularMoviesList=(req=request, res=response) => {
       const { data } = response
 
       res.status(200).json({
-        msg: '200K',
+        statusCode: '200K',
         data
       })
     })
     .catch((error) => {
       res.status(400).json({
-        msg: '400K',
+        statusCode: '400K',
         error
       })
     })
 }
 
-const getMovieDetails=(req=request, res=response) => {
+const getMovieDetails = (req = request, res = response) => {
   const { idMovie = '' } = req.params
 
-  axios.get(url + idMovie, {
+  axios.get(process.env.url + idMovie, {
     params: {
       api_key: process.env.API_KEY
     }
@@ -49,7 +47,7 @@ const getMovieDetails=(req=request, res=response) => {
     .then((response) => {
       const { data } = response
       res.status(200).json({
-        msg: '200K',
+        statusCode: '200K',
         data
       })
     })
@@ -69,6 +67,6 @@ const getMovieDetails=(req=request, res=response) => {
 }
 
 module.exports = {
-    getPopularMoviesList,
-    getMovieDetails
-  }
+  getPopularMoviesList,
+  getMovieDetails
+}
