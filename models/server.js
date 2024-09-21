@@ -21,7 +21,7 @@ class Server {
     // Galo Santopietro
 
     // Pedro Weyland
-    this.app.use('/api/v1/movies', require('../routes/movies'))
+    this.app.use('/api/v1/movie', require('../routes/movie'))
   }
 
   listen () {
