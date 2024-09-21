@@ -1,5 +1,6 @@
 const axios = require('axios')
 const { request, response } = require('express')
+// Integrante Pedro Weyland
 
 // Funcion para tener una lista de las peliculas que van a salir proximamente
 const getUpcoming = (req = request, res = response) => {
@@ -30,7 +31,7 @@ const getUpcoming = (req = request, res = response) => {
 
       // Lanzo excepcion cuando no hay datos, ej: pone un pagina inexistente
       if (data.results.length === 0) {
-        const error = new Error('Not Found')
+        const error = new Error()
         error.status = 404
         throw error
       }
@@ -44,7 +45,7 @@ const getUpcoming = (req = request, res = response) => {
       if ((error.status === 404)) {
         res.status(404).json({
           status: 404,
-          messege: 'NOT FOUND - Data not found'
+          messege: 'NOT FOUND - Page not found'
         })
       } else {
         res.status(400).json({
