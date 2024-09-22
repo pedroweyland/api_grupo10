@@ -2,9 +2,9 @@ const axios = require('axios')
 const { request, response } = require('express')
 
 const getPersonasDetalles = (req = request, res = response) => {
-  const { person_id = '' } = req.params
+  const { idPerson = '' } = req.params
 
-  axios.get(`${process.env.URL}person/${person_id}`, {
+  axios.get(`${process.env.URL}person/${idPerson}`, {
     params: {
       api_key: process.env.API_KEY
     }

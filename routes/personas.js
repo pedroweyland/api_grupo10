@@ -3,7 +3,7 @@ const { getPersonasDetalles, getPersonasPopulares } = require('../Controllers/pe
 
 const rutas = Router()
 
-rutas.get('/:person_id', getPersonasDetalles)
+rutas.get('/:idPerson', getPersonasDetalles)
 rutas.get('/', getPersonasPopulares)
 
 module.exports = rutas
