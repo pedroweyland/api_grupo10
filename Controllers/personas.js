@@ -20,7 +20,6 @@ const getPersonasDetalles = (req = request, res = response) => {
     })
 
     .catch((error) => {
-      console.log(error)
       if (error.response.status === 404) {
         res.status(404).json({
           status: 404,
@@ -57,7 +56,6 @@ const getPersonasPopulares = (req = request, res = response) => {
 
     .then((response) => {
       const { data } = response
-      console.log(data)
 
       res.status(200).json({
         status: 200,
@@ -65,7 +63,6 @@ const getPersonasPopulares = (req = request, res = response) => {
       })
     })
     .catch((error) => {
-      console.log(error)
       if (error.response && error.response.status === 404) {
         res.status(404).json({
           status: 404,
