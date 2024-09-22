@@ -1,6 +1,57 @@
 const axios = require('axios')
-const e = require('express')
 const { request, response } = require('express')
+
+const getPopularSeries = (req = request, res = response) => {
+  
+  const { page = '', language = '' } = req.query
+  const querysParams = []
+
+  if (page) {
+    querysParams.push(`page=${page}`)
+  }
+  if (language) {
+    querysParams.push(`language=${language}`)
+  }
+
+  const filter = querysParams.length > 0 ? `?${querysParams.join('&')}` : ''
+  
+  axios.get(`${process.env.URL}tv/popular${filter}`, {
+    params: {
+      api_key: process.env.API_KEY
+    }
+  })
+
+    .then((response) => {
+      const { data } = response
+
+      if (data.results.length === 0) {
+        const error = new Error()
+        error.status = 404
+        throw error
+      }
+
+      res.status(200).json({
+        status: 'OK',
+        data
+      })
+    })
+
+    .catch((error) => {
+      console.log(error)
+      if (error.response.status === 404) {
+        res.status(404).json({
+          status: 'Error',
+          messege: 'Not found'
+        })
+      } else {
+        res.status(400).json({
+          status: 'Error',
+          messege: 'Bad request'
+        })
+      }
+    })
+  }
+
 const getSeries = (req = request, res = response) => {
   const { series_id = '' } = req.params
 
@@ -41,5 +92,6 @@ const getSeries = (req = request, res = response) => {
 }
 
 module.exports = {
+  getPopularSeries,
   getSeries
 }
