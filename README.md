@@ -19,9 +19,9 @@ Endpoint popular series (GET)
         -api/v1/series/popular?page=200
     -language: Este parametro permite elegir en que idioma se va a mostar la informacion de las peliculas de la lista. por defecto el valor es en-US.
         ejemplos:
-        -api/v1/movie/popular?language=ja
-        -api/v1/movie/popular?language=es
-        -api/v1/movie/popular?language=es-ES
+        -api/v1/series/popular?language=en
+        -api/v1/series/popular?language=es
+        -api/v1/series/popular?language=fr
 
     Posibles Status Code:
     -200: OK (Cuando la lista es obtenida correctamente)
