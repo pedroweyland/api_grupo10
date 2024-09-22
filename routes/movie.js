@@ -6,7 +6,7 @@ const routes = Router()
 
 // Integrante Galo Santopietro
 routes.get('/popular', getPopularMoviesList)
-routes.get('/:idMovie', getMovieDetails)
+routes.get('/details/:idMovie', getMovieDetails)
 
 // Integrante Pedro Weyland
 routes.get('/upcoming', getUpcoming)

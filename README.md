@@ -118,7 +118,7 @@ Endpoint movie details (GET)
     Este endpoint devuelve los detalles de una pelicula en especifico la cual se busca por ID. Los detalles de la pelicula provienen de una consulta a la API externa de peliculas: 'https://api.themoviedb.org/3'
 
     URL:
-    api/v1/movie/:idMovie
+    api/v1/movie/details/:idMovie
 
     Posibles Status Code:
     -200: OK (Cuando la lista es obtenida correctamente)
