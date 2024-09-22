@@ -52,7 +52,7 @@ const getPopularSeries = (req = request, res = response) => {
     })
   }
 
-const getSeries = (req = request, res = response) => {
+const getSeriesDetails = (req = request, res = response) => {
   const { series_id = '' } = req.params
 
   if (!series_id) {
@@ -93,5 +93,5 @@ const getSeries = (req = request, res = response) => {
 
 module.exports = {
   getPopularSeries,
-  getSeries
+  getSeriesDetails
 }
