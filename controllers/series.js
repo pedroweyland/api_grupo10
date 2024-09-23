@@ -2,7 +2,6 @@ const axios = require('axios')
 const { request, response } = require('express')
 
 const getPopularSeries = (req = request, res = response) => {
-  
   const { page = '', language = '' } = req.query
   const querysParams = []
 
@@ -14,7 +13,7 @@ const getPopularSeries = (req = request, res = response) => {
   }
 
   const filter = querysParams.length > 0 ? `?${querysParams.join('&')}` : ''
-  
+
   axios.get(`${process.env.URL}tv/popular${filter}`, {
     params: {
       api_key: process.env.API_KEY
@@ -37,7 +36,6 @@ const getPopularSeries = (req = request, res = response) => {
     })
 
     .catch((error) => {
-
       if (error.response.status === 404) {
         res.status(404).json({
           status: 'Error',
@@ -50,18 +48,18 @@ const getPopularSeries = (req = request, res = response) => {
         })
       }
     })
-  }
+}
 
 const getSeriesDetails = (req = request, res = response) => {
-  const { series_id = '' } = req.params
+  const { seriesId = '' } = req.params
 
-  if (!series_id) {
+  if (!seriesId) {
     return res.status(400).json({
       msg: 'Falta id de la serie'
     })
   }
 
-  axios.get(`${process.env.URL}tv/${series_id}`, {
+  axios.get(`${process.env.URL}tv/${seriesId}`, {
     params: {
       api_key: process.env.API_KEY
     }
@@ -76,7 +74,6 @@ const getSeriesDetails = (req = request, res = response) => {
     })
 
     .catch((error) => {
-
       if (error.response.status === 404) {
         res.status(404).json({
           status: 'Error',

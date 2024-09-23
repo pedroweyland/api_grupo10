@@ -1,11 +1,9 @@
 const { Router } = require('express')
-const { getPopularSeries } = require ('../controllers/series')
+const { getPopularSeries } = require('../controllers/series')
 const { getSeriesDetails } = require('../controllers/series')
-
 
 const rutas = Router()
 rutas.get('/popular', getPopularSeries)
-rutas.get('/:series_id', getSeriesDetails)
-
+rutas.get('/:seriesId', getSeriesDetails)
 
 module.exports = rutas
