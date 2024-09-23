@@ -37,7 +37,7 @@ const getPopularSeries = (req = request, res = response) => {
     })
 
     .catch((error) => {
-      console.log(error)
+
       if (error.response.status === 404) {
         res.status(404).json({
           status: 'Error',
@@ -76,7 +76,7 @@ const getSeriesDetails = (req = request, res = response) => {
     })
 
     .catch((error) => {
-      console.log(error)
+
       if (error.response.status === 404) {
         res.status(404).json({
           status: 'Error',
