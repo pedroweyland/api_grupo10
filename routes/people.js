@@ -1,5 +1,5 @@
 const { Router } = require('express')
-const { getPeopleDetails, getPeoplePopular } = require('../Controllers/people')
+const { getPeopleDetails, getPeoplePopular } = require('../controllers/people')
 
 const rutas = Router()
 
