@@ -13,13 +13,11 @@ class Server {
   }
 
   routes () {
-    // this.app.use('/api/v1/peliculas', require('../routes/peliculas')) // Integrante 1
-
     // Daniel D'Onofrio
     this.app.use('/api/v1/series', require('../routes/series'))
 
     // Gabriel Ponce
-    this.app.use('/api/v1/personas', require('../routes/personas'))
+    this.app.use('/api/v1/people', require('../routes/people'))
 
     // Galo Santopietro y Pedro Weyland
     this.app.use('/api/v1/movie', require('../routes/movie'))

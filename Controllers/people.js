@@ -1,7 +1,7 @@
 const axios = require('axios')
 const { request, response } = require('express')
 
-const getPersonasDetalles = (req = request, res = response) => {
+const getPeopleDetails = (req = request, res = response) => {
   const { idPerson = '' } = req.params
 
   axios.get(`${process.env.URL}person/${idPerson}`, {
@@ -34,7 +34,7 @@ const getPersonasDetalles = (req = request, res = response) => {
     })
 }
 
-const getPersonasPopulares = (req = request, res = response) => {
+const getPeoplePopular = (req = request, res = response) => {
   const { page = '', language = '' } = req.query
 
   const querysParams = []
@@ -78,6 +78,6 @@ const getPersonasPopulares = (req = request, res = response) => {
 }
 
 module.exports = {
-  getPersonasDetalles,
-  getPersonasPopulares
+  getPeopleDetails,
+  getPeoplePopular
 }
