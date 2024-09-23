@@ -5,24 +5,24 @@ class Server {
     this.app = express()
     this.port = process.env.PORT || 3000
     this.middleware()
-    this.rutas()
+    this.routes()
   }
 
   middleware () {
     this.app.use(express.static('public'))
   }
 
-  rutas () {
-    // this.app.use('/api/v1/peliculas', require('../routes/peliculas')) // Integrante 1
-
+  routes () {
+    //this.app.use('/api/v1/peliculas', require('../routes/peliculas')) // Integrante 1
+    
     // Daniel D'Onofrio
     this.app.use('/api/v1/series', require('../routes/series'))
 
     // Gabriel Ponce
+    this.app.use('/api/v1/personas', require('../routes/personas'))
 
-    // Galo Santopietro
-
-    // Pedro Weyland
+    // Galo Santopietro y Pedro Weyland
+    this.app.use('/api/v1/movie', require('../routes/movie'))
   }
 
   listen () {
@@ -31,5 +31,4 @@ class Server {
     })
   }
 }
-
 module.exports = Server
