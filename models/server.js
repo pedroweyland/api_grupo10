@@ -13,8 +13,8 @@ class Server {
   }
 
   routes () {
-    //this.app.use('/api/v1/peliculas', require('../routes/peliculas')) // Integrante 1
-    
+    // this.app.use('/api/v1/peliculas', require('../routes/peliculas')) // Integrante 1
+
     // Daniel D'Onofrio
     this.app.use('/api/v1/series', require('../routes/series'))
 
