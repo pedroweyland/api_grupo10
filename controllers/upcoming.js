@@ -19,7 +19,7 @@ const getUpcoming = (req = request, res = response) => {
   // 'filter' va ser una concatenacion de todos los querysParamas, si no hay querysParams queda vacio
   const filter = querysParams.length > 0 ? `?${querysParams.join('&')}` : ''
 
-  axios.get(`${process.env.url}movie/upcoming${filter}`, {
+  axios.get(`${process.env.URL}movie/upcoming${filter}`, {
     params: {
       api_key: process.env.API_KEY
 
@@ -60,7 +60,7 @@ const getUpcoming = (req = request, res = response) => {
 const getMovieCredits = (req = request, res = response) => {
   const { idMovie = '' } = req.params
 
-  axios.get(`${process.env.url}movie/${idMovie}/credits`, {
+  axios.get(`${process.env.URL}movie/${idMovie}/credits`, {
     params: {
       api_key: process.env.API_KEY
     }
