@@ -1,4 +1,5 @@
 const express = require('express')
+const cors = require('cors')
 
 class Server {
   constructor () {
@@ -9,6 +10,8 @@ class Server {
   }
 
   middleware () {
+    this.app.use(cors()) // Esto permite todas las solicitudes desde cualquier origen
+
     this.app.use(express.static('public'))
   }
 
