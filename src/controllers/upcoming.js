@@ -1,8 +1,52 @@
-const axios = require('axios')
 const { request, response } = require('express')
+const { fetchUpcoming, fetchMovieCredits } = require('../service/upcoming')
+
 // Integrante Pedro Weyland
 
-// Funcion para tener una lista de las peliculas que van a salir proximamente
+const getUpcoming = async (req = request, res = response) => {
+  const { page = '', language = '' } = req.query
+  const queryParams = []
+
+  if (page) queryParams.push(`page=${page}`)
+  if (language) queryParams.push(`language=${language}`)
+
+  try {
+    const movies = await fetchUpcoming(queryParams)
+    res.status(200).json({
+      status: 200,
+      data: movies
+    })
+  } catch (error) {
+    res.status(error.status).json({
+      status: error.status,
+      message: error.message
+    })
+  }
+}
+
+const getMovieCredits = async (req = request, res = response) => {
+  const { idMovie = '' } = req.params
+
+  try {
+    const credits = await fetchMovieCredits(idMovie)
+    res.status(200).json({
+      status: 200,
+      data: credits
+    })
+  } catch (error) {
+    res.status(error.status).json({
+      status: error.status,
+      message: error.message
+    })
+  }
+}
+
+module.exports = {
+  getUpcoming,
+  getMovieCredits
+}
+
+/* Funcion para tener una lista de las peliculas que van a salir proximamente
 const getUpcoming = (req = request, res = response) => {
   // Preparo mis posibles query params que puede ingresar mi usuario
   const { page = '', language = '' } = req.query
@@ -92,3 +136,5 @@ module.exports = {
   getUpcoming,
   getMovieCredits
 }
+
+*/
