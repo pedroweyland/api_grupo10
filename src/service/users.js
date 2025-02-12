@@ -1,6 +1,6 @@
-const { User } = require('../database/users')
-const bcrypt = require('bcrypt')
-const { CustomError } = require('../exceptions/customError').default
+import CustomError from '../exceptions/customError.js'
+import User from '../database/users.js'
+import bcrypt from 'bcrypt'
 
 const createUser = async (data) => {
   try {
@@ -18,7 +18,7 @@ const createUser = async (data) => {
     return createdUser
   } catch (error) {
     error.message = error.message || 'Error en la creación del usuario'
-    error.status = 400
+    error.status = error.status || 500
     throw error
   }
 }
@@ -53,7 +53,7 @@ const validateUserExist = async (email) => {
   }
 }
 
-module.exports = {
+export {
   createUser,
   loginUser
 }

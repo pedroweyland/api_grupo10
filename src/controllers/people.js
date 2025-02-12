@@ -1,5 +1,5 @@
-const axios = require('axios')
-const { request, response } = require('express')
+import axios from 'axios'
+import { request, response } from 'express'
 
 const getPeopleDetails = (req = request, res = response) => {
   const { idPerson = '' } = req.params
@@ -77,7 +77,7 @@ const getPeoplePopular = (req = request, res = response) => {
     })
 }
 
-module.exports = {
+export {
   getPeopleDetails,
   getPeoplePopular
 }

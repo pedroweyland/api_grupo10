@@ -1,4 +1,4 @@
-const axios = require('axios')
+import axios from 'axios'
 
 const fetchUpcoming = async (queryParams) => {
   const filter = queryParams.length > 0 ? `?${queryParams.join('&')}` : ''
@@ -41,7 +41,7 @@ const fetchMovieCredits = async (idMovie) => {
   }
 }
 
-module.exports = {
+export {
   fetchUpcoming,
   fetchMovieCredits
 }

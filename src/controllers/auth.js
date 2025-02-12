@@ -1,6 +1,6 @@
-const { request, response } = require('express')
-const { createUser, loginUser } = require('../service/users')
-const { CustomError } = require('../exceptions/customError').default
+import CustomError from '../exceptions/customError.js'
+import { request, response } from 'express'
+import { createUser, loginUser } from '../service/users.js'
 
 const postRegisterUser = async (req = request, res = response) => {
   try {
@@ -14,8 +14,8 @@ const postRegisterUser = async (req = request, res = response) => {
     })
   } catch (error) {
     res.status(error.status).json({
-      status: error.status,
-      message: error.message
+      status: error.status || 500,
+      message: error.message || 'Error interno del servidor'
     })
   }
 }
@@ -25,7 +25,7 @@ const postLoginUser = async (req = request, res = response) => {
     const { email, password } = req.body
 
     if (!email || !password) {
-      throw new CustomError('Los campos "email" y "password" son requeridos.', 400)
+      throw new CustomError("Los campos 'email' y 'password' son requeridos.", 400)
     }
 
     const user = await loginUser(email, password)
@@ -46,19 +46,19 @@ const validateCreateUser = (body) => {
   const { username, email, password } = body
 
   if (!username) {
-    throw new CustomError('El campo "username" es requerido.', 400)
+    throw new CustomError("El campo 'username' es requerido.", 400)
   }
 
   if (!email) {
-    throw new CustomError('El campo "email" es requerido.', 400)
+    throw new CustomError("El campo 'email' es requerido.", 400)
   }
 
   if (!password) {
-    throw new CustomError('El campo "password" es requerido.', 400)
+    throw new CustomError("El campo 'password es requerido.", 400)
   }
 }
 
-module.exports = {
+export {
   postRegisterUser,
   postLoginUser
 }
