@@ -1,9 +1,9 @@
-const { Router } = require('express')
-const { getPeopleDetails, getPeoplePopular } = require('../controllers/people')
+import Router from 'express'
+import { getPeopleDetails, getPeoplePopular } from '../controllers/people.js'
 
 const rutas = Router()
 
 rutas.get('/:idPerson', getPeopleDetails)
 rutas.get('/', getPeoplePopular)
 
-module.exports = rutas
+export default rutas

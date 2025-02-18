@@ -1,5 +1,6 @@
-const axios = require('axios')
-const { request, response } = require('express')
+import axios from 'axios'
+import { request, response } from 'express'
+
 // Integrante Galo Santopietro
 const getPopularMoviesList = (req = request, res = response) => {
   const { page = '', language = '' } = req.query
@@ -66,7 +67,7 @@ const getMovieDetails = (req = request, res = response) => {
     })
 }
 
-module.exports = {
+export {
   getPopularMoviesList,
   getMovieDetails
 }

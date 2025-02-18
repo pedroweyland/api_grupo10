@@ -1,6 +1,6 @@
-const { Router } = require('express')
-const { getPopularMoviesList, getMovieDetails } = require('../controllers/movie')
-const { getUpcoming, getMovieCredits } = require('../controllers/upcoming')
+import { Router } from 'express'
+import { getPopularMoviesList, getMovieDetails } from '../controllers/movie.js'
+import { getUpcoming, getMovieCredits } from '../controllers/upcoming.js'
 
 const routes = Router()
 
@@ -12,4 +12,4 @@ routes.get('/details/:idMovie', getMovieDetails)
 routes.get('/upcoming', getUpcoming)
 routes.get('/credits/:idMovie', getMovieCredits)
 
-module.exports = routes
+export default routes

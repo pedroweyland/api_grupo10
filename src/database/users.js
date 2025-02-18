@@ -1,5 +1,6 @@
-const { Sequelize, Model } = require('sequelize')
-const bcrypt = require('bcrypt')
+import pkg from 'sequelize'
+import bcrypt from 'bcrypt'
+const { Sequelize, Model } = pkg
 
 const sequelize = new Sequelize('movies_project', 'root', `${process.env.PASSWORD_ROOT}`, {
   host: 'localhost',
@@ -53,6 +54,4 @@ User.init({
   }
 })
 
-module.exports = {
-  User
-}
+export default User
