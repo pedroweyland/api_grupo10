@@ -1,9 +1,8 @@
-import User from '../database/users.js'
 import express from 'express'
+import cors from 'cors'
 import seriesRoutes from '../routes/series.js'
 import peopleRoutes from '../routes/people.js'
-import movieRoutes from '../routes/movie.js'
-import authRoutes from '../routes/auth.js'
+import movieRoutes from '../routes/movies.js'
 
 class Server {
   constructor () {
@@ -29,23 +28,9 @@ class Server {
 
     // Galo Santopietro y Pedro Weyland
     this.app.use('/api/v1/movie', movieRoutes)
-
-    // Auth
-    this.app.use('/api/v1/auth', authRoutes)
-  }
-
-  async connectDB () {
-    try {
-      await User.sync()
-      console.log('Base de datos sincronizada correctamente.')
-    } catch (error) {
-      console.error('Error al sincronizar la base de datos:', error)
-      process.exit(1)
-    }
   }
 
   async listen () {
-    await this.connectDB()
     this.app.listen(this.port, () => {
       console.log(`La API esta escuchando en el puerto ${this.port}`)
     })
