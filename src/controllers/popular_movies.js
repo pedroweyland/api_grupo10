@@ -1,5 +1,5 @@
 import { request, response } from 'express'
-import {fetchPopularMovies } from '../service/popular_movies.js'
+import { fetchPopularMovies } from '../service/popular_movies.js'
 
 // Integrante Galo Santopietro
 const getPopularMovies = async (req = request, res = response) => {
@@ -17,7 +17,7 @@ const getPopularMovies = async (req = request, res = response) => {
     const data = await fetchPopularMovies(queryParams)
     res.status(200).json({
       status: 200,
-      data: data
+      data
     })
   } catch (error) {
     res.status(500).json({
