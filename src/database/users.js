@@ -1,47 +1,49 @@
-import pkg from 'sequelize'
 import bcrypt from 'bcrypt'
-const { Sequelize, Model } = pkg
+import { Sequelize, Model, DataTypes } from '@sequelize/core'
+import { SqliteDialect } from '@sequelize/sqlite3'
 
-const sequelize = new Sequelize('movies_project', 'root', `${process.env.PASSWORD_ROOT}`, {
-  host: 'localhost',
-  dialect: 'mysql',
-  port: 3306
-})
+const sequelize = new Sequelize(
+  {
+    storage: ':memory:',
+    dialect: SqliteDialect,
+    pool: { max: 1, idle: Infinity, maxUses: Infinity }
+  }
+)
 
 class User extends Model {}
 
 User.init({
   id: {
-    type: Sequelize.INTEGER,
+    type: DataTypes.INTEGER,
     primaryKey: true,
     autoIncrement: true
   },
   username: {
-    type: Sequelize.STRING,
+    type: DataTypes.STRING,
     allowNull: false
   },
   email: {
-    type: Sequelize.STRING,
+    type: DataTypes.STRING,
     allowNull: false
   },
   password: {
-    type: Sequelize.STRING,
+    type: DataTypes.STRING,
     allowNull: false
   },
   first_name: {
-    type: Sequelize.STRING,
+    type: DataTypes.STRING,
     allowNull: true
   },
   last_name: {
-    type: Sequelize.STRING,
+    type: DataTypes.STRING,
     allowNull: true
   },
   phone: {
-    type: Sequelize.STRING,
+    type: DataTypes.STRING,
     allowNull: true
   },
   address: {
-    type: Sequelize.STRING,
+    type: DataTypes.STRING,
     allowNull: true
   }
 }, {
