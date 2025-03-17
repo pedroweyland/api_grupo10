@@ -1,4 +1,5 @@
-import { getPopularSeries, getSeriesDetails } from '../controllers/series.js'
+import { getSeriesDetails } from '../controllers/series_details.js'
+import { getPopularSeries } from '../controllers/popular_series.js'
 import { Router } from 'express'
 
 const rutas = Router()
