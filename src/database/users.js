@@ -4,7 +4,7 @@ import { SqliteDialect } from '@sequelize/sqlite3'
 
 const sequelize = new Sequelize(
   {
-    storage: ':memory:',
+    storage: 'src/database/database.sqlite',
     dialect: SqliteDialect,
     pool: { max: 1, idle: Infinity, maxUses: Infinity }
   }

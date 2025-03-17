@@ -1,5 +1,6 @@
 import User from '../database/users.js'
 import express from 'express'
+import cors from 'cors' // Importa el paquete cors
 import seriesRoutes from '../routes/series.js'
 import peopleRoutes from '../routes/people.js'
 import movieRoutes from '../routes/movie.js'
@@ -14,6 +15,8 @@ class Server {
   }
 
   middleware () {
+    // Configura CORS
+    this.app.use(cors())
     this.app.use(express.static('public'))
     this.app.use(express.json())
   }
