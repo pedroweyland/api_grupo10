@@ -1,6 +1,8 @@
 import User from '../database/users.js'
+import Lists from '../database/lists.js'
+import Media from '../database/media.js'
 import express from 'express'
-import cors from 'cors' // Importa el paquete cors
+import cors from 'cors'
 import seriesRoutes from '../routes/series.js'
 import peopleRoutes from '../routes/people.js'
 import movieRoutes from '../routes/movie.js'
@@ -38,6 +40,8 @@ class Server {
   async connectDB () {
     try {
       await User.sync()
+      await Lists.sync()
+      await Media.sync()
       console.log('Base de datos sincronizada correctamente.')
     } catch (error) {
       console.error('Error al sincronizar la base de datos:', error)

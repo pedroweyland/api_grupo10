@@ -1,18 +1,10 @@
 import bcrypt from 'bcrypt'
-import { Sequelize, Model, DataTypes } from '@sequelize/core'
-import { SqliteDialect } from '@sequelize/sqlite3'
+import { Model, DataTypes } from '@sequelize/core'
+import sequelize from './sequelize.js'
 
-const sequelize = new Sequelize(
-  {
-    storage: 'src/database/database.sqlite',
-    dialect: SqliteDialect,
-    pool: { max: 1, idle: Infinity, maxUses: Infinity }
-  }
-)
+class Users extends Model {}
 
-class User extends Model {}
-
-User.init({
+Users.init({
   id: {
     type: DataTypes.INTEGER,
     primaryKey: true,
@@ -56,4 +48,4 @@ User.init({
   }
 })
 
-export default User
+export default Users
