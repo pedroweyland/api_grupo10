@@ -6,6 +6,7 @@ import cors from 'cors'
 import seriesRoutes from '../routes/series.js'
 import peopleRoutes from '../routes/people.js'
 import movieRoutes from '../routes/movies.js'
+import authRoutes from '../routes/auth.js'
 
 class Server {
   constructor () {
@@ -13,6 +14,7 @@ class Server {
     this.port = process.env.PORT || 3000
     this.middleware()
     this.routes()
+    this.connectDB()
   }
 
   middleware () {
@@ -31,10 +33,14 @@ class Server {
 
     // Galo Santopietro y Pedro Weyland
     this.app.use('/api/v1/movie', movieRoutes)
+
+    // Gabriel Ponce y Pedro Weyland
+    this.app.use('/api/v1/auth', authRoutes)
   }
 
   async connectDB () {
     try {
+      // await sequelize.authenticate()
       await User.sync()
       await Lists.sync()
       await Media.sync()
