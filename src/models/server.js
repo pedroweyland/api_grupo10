@@ -31,9 +31,6 @@ class Server {
 
     // Galo Santopietro y Pedro Weyland
     this.app.use('/api/v1/movie', movieRoutes)
-
-    // Auth
-    this.app.use('/api/v1/auth', authRoutes)
   }
 
   async connectDB () {
