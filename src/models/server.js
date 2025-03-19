@@ -5,8 +5,7 @@ import express from 'express'
 import cors from 'cors'
 import seriesRoutes from '../routes/series.js'
 import peopleRoutes from '../routes/people.js'
-import movieRoutes from '../routes/movie.js'
-import authRoutes from '../routes/auth.js'
+import movieRoutes from '../routes/movies.js'
 
 class Server {
   constructor () {
@@ -50,7 +49,6 @@ class Server {
   }
 
   async listen () {
-    await this.connectDB()
     this.app.listen(this.port, () => {
       console.log(`La API esta escuchando en el puerto ${this.port}`)
     })

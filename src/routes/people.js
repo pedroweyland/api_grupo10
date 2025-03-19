@@ -1,5 +1,6 @@
 import Router from 'express'
-import { getPeopleDetails, getPeoplePopular } from '../controllers/people.js'
+import { getPeopleDetails } from '../controllers/people_details.js'
+import { getPeoplePopular } from '../controllers/popular_people.js'
 
 const rutas = Router()
 
