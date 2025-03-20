@@ -17,7 +17,7 @@ const getUpcoming = async (req = request, res = response) => {
       data: movies
     })
   } catch (error) {
-    res.status(error.status).json({
+    res.status(error.status || 500).json({
       status: error.status,
       message: error.message
     })
@@ -34,7 +34,7 @@ const getMovieCredits = async (req = request, res = response) => {
       data: credits
     })
   } catch (error) {
-    res.status(error.status).json({
+    res.status(error.status || 500).json({
       status: error.status,
       message: error.message
     })

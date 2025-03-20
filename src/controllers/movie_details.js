@@ -12,7 +12,7 @@ const getMovieDetails = async (req = request, res = response) => {
       data
     })
   } catch (error) {
-    res.status(500).json({
+    res.status(error.status || 500).json({
       status: error.status,
       message: error.message
     })

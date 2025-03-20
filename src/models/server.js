@@ -1,8 +1,12 @@
+import User from '../database/users.js'
+import Lists from '../database/lists.js'
+import Media from '../database/media.js'
 import express from 'express'
 import cors from 'cors'
 import seriesRoutes from '../routes/series.js'
 import peopleRoutes from '../routes/people.js'
 import movieRoutes from '../routes/movies.js'
+import authRoutes from '../routes/auth.js'
 
 class Server {
   constructor () {
@@ -10,11 +14,12 @@ class Server {
     this.port = process.env.PORT || 3000
     this.middleware()
     this.routes()
+    this.connectDB()
   }
 
   middleware () {
-    this.app.use(cors()) // Esto permite todas las solicitudes desde cualquier origen
-
+    // Configura CORS
+    this.app.use(cors())
     this.app.use(express.static('public'))
     this.app.use(express.json())
   }
@@ -28,6 +33,22 @@ class Server {
 
     // Galo Santopietro y Pedro Weyland
     this.app.use('/api/v1/movie', movieRoutes)
+
+    // Gabriel Ponce y Pedro Weyland
+    this.app.use('/api/v1/auth', authRoutes)
+  }
+
+  async connectDB () {
+    try {
+      // await sequelize.authenticate()
+      await User.sync()
+      await Lists.sync()
+      await Media.sync()
+      console.log('Base de datos sincronizada correctamente.')
+    } catch (error) {
+      console.error('Error al sincronizar la base de datos:', error)
+      process.exit(1)
+    }
   }
 
   async listen () {
