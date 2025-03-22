@@ -9,4 +9,7 @@ const sequelize = new Sequelize(
   }
 )
 
+// Habilita las claves foráneas
+await sequelize.query('PRAGMA foreign_keys = ON;')
+
 export default sequelize

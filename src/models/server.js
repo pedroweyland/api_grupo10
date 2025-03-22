@@ -7,6 +7,7 @@ import seriesRoutes from '../routes/series.js'
 import peopleRoutes from '../routes/people.js'
 import movieRoutes from '../routes/movies.js'
 import authRoutes from '../routes/auth.js'
+import listsRoutes from '../routes/lists.js'
 
 class Server {
   constructor () {
@@ -36,6 +37,9 @@ class Server {
 
     // Gabriel Ponce y Pedro Weyland
     this.app.use('/api/v1/auth', authRoutes)
+
+    // Galo Santopietro y Daniel D'Onofrio
+    this.app.use('/api/v1/lists', listsRoutes)
   }
 
   async connectDB () {
