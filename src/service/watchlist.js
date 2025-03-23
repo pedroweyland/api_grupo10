@@ -19,7 +19,6 @@ export const addToWatchlist = async ({ userId, mediaId, mediaType }) => {
 
   // Consultar la API externa
   let mediaData
-
   try {
     if (mediaType === 'movie') {
       // Obtener detalles de película
@@ -32,10 +31,24 @@ export const addToWatchlist = async ({ userId, mediaId, mediaType }) => {
     throw new CustomError(`Error fetching ${mediaType} details: ${error.message}`, 404)
   }
 
-  // Insertar en la tabla `media`
+  // Insertar en la tabla `media` si no existe
   await createMedia(mediaType, mediaData)
 
-  // Insertar en la tabla `lists`
+  // Comprobar si ya existe el elemento en la lista
+  const existingItem = await Lists.findOne({
+    where: {
+      id_user: userId,
+      id_media: mediaId,
+      type: 'watchlist'
+    }
+  })
+
+  if (existingItem) {
+    // Si ya existe, devolver un mensaje indicando que el elemento está en la watchlist
+    throw new CustomError('Item already exists in the watchlist', 409)
+  }
+
+  // Si no existe, agregar el elemento a la watchlist
   const item = await Lists.create({
     id_user: userId,
     id_media: mediaId,
@@ -69,15 +82,15 @@ export const getWatchlist = async (userId) => {
   return items
 }
 
-export const removeFromWatchlist = async ({ userId, movieId, seriesId }) => {
-  if (!userId || (!movieId && !seriesId)) {
+export const removeFromWatchlist = async ({ userId, mediaId, mediaType }) => {
+  if (!userId || !mediaId || !mediaType) {
     throw new CustomError('Missing required fields', 400)
   }
 
   // Crea la condición para eliminar
   const condition = {
     id_user: userId,
-    id_media: movieId || seriesId, // Usa el id_media para identificar el contenido
+    id_media: mediaId,
     type: 'watchlist'
   }
 
