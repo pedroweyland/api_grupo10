@@ -1,12 +1,13 @@
 import Users from '../database/users.js'
 import Lists from '../database/lists.js'
-import Media from '../database/media.js'
+
 import { fetchSeriesDetails } from './series_details.js'
 import { fetchMovieDetails } from './movie_details.js'
 import CustomError from '../exceptions/customError.js'
+import createMedia from '../service/media_list.js'
 
-export const addToWatchlist = async ({ userId, movieId, seriesId }) => {
-  if (!userId || (!movieId && !seriesId)) {
+export const addToWatchlist = async ({ userId, mediaId, mediaType }) => {
+  if (!userId || !mediaId || !mediaType) {
     throw new CustomError('Missing required fields', 400)
   }
 
@@ -17,35 +18,22 @@ export const addToWatchlist = async ({ userId, movieId, seriesId }) => {
   }
 
   // Consultar la API externa
-  const mediaId = movieId || seriesId
-  const mediaType = movieId ? 'movie' : 'serie' // Determina si es película o serie
   let mediaData
 
   try {
-    if (movieId) {
+    if (mediaType === 'movie') {
       // Obtener detalles de película
-      mediaData = await fetchMovieDetails(movieId)
+      mediaData = await fetchMovieDetails(mediaId)
     } else {
       // Obtener detalles de serie
-      mediaData = await fetchSeriesDetails(seriesId)
+      mediaData = await fetchSeriesDetails(mediaId)
     }
   } catch (error) {
     throw new CustomError(`Error fetching ${mediaType} details: ${error.message}`, 404)
   }
 
-  // Verificar si el contenido existe en la tabla `media`
-  const mediaExists = await Media.findByPk(mediaId)
-  if (!mediaExists) {
-    // Si no existe, agregarlo
-    await Media.create({
-      id: mediaId,
-      type: mediaType,
-      title: mediaData.title || mediaData.name,
-      release_date: mediaData.release_date || mediaData.first_air_date,
-      overview: mediaData.overview,
-      poster_path: mediaData.poster_path
-    })
-  }
+  // Insertar en la tabla `media`
+  await createMedia(mediaType, mediaData)
 
   // Insertar en la tabla `lists`
   const item = await Lists.create({
@@ -59,9 +47,11 @@ export const addToWatchlist = async ({ userId, movieId, seriesId }) => {
     mediaDetails: {
       id: mediaId,
       title: mediaData.title || mediaData.name,
+      original_title: mediaData.original_title || mediaData.original_name,
       overview: mediaData.overview,
       release_date: mediaData.release_date || mediaData.first_air_date,
-      poster_path: mediaData.poster_path
+      poster_path: mediaData.poster_path,
+      vote_average: mediaData.vote_average
     }
   }
 }
