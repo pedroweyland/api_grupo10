@@ -1,4 +1,9 @@
 import CustomError from '../exceptions/customError.js'
+import Users from '../database/users.js'
+import Lists from '../database/lists.js'
+import { fetchSeriesDetails } from './series_details.js'
+import { fetchMovieDetails } from './movie_details.js'
+import createMedia from '../service/media_list.js'
 
 const addToFavoriteList = async (userId, mediaId, mediaType) => {
   try {
@@ -6,8 +11,8 @@ const addToFavoriteList = async (userId, mediaId, mediaType) => {
     if (!userExists) {
       throw new CustomError(`User with id ${userId} not found`, 404)
     }
-    
-    const favoriteItemExists = await Lists.findOne({ where: { mediaId, userId, mediaType} })
+
+    const favoriteItemExists = await Lists.findOne({ where: { mediaId, userId, mediaType } })
     if (favoriteItemExists) {
       throw new CustomError('Item already exists in the watchlist', 409)
     }
@@ -23,9 +28,9 @@ const addToFavoriteList = async (userId, mediaId, mediaType) => {
       throw new CustomError(`Error fetching ${mediaType} details: ${error.message}`, 404)
     }
 
-    await createMedia(mediaType, mediaId)
+    await createMedia(mediaType, mediaData)
 
-    const favoriteItem = await FavoriteItem.create({
+    const favoriteItem = await Lists.create({
       mediaId,
       userId,
       listType: 'favorite'
@@ -39,7 +44,7 @@ const addToFavoriteList = async (userId, mediaId, mediaType) => {
   }
 }
 
-const getFavoriteList = async (userId) => {
+const getFavoriteListFromUser = async (userId) => {
   try {
     const userExists = await Users.findByPk(userId)
     if (!userExists) {
@@ -68,7 +73,7 @@ const removeFromFavoriteList = async (userId, mediaId, mediaType) => {
       throw new CustomError(`User with id ${userId} not found`, 404)
     }
 
-    const favoriteItemExists = await Lists.findOne({ where: { mediaId, userId, mediaType} })
+    const favoriteItemExists = await Lists.findOne({ where: { mediaId, userId, mediaType } })
     if (!favoriteItemExists) {
       throw new CustomError('Item not found in the favorite list', 404)
     }
@@ -91,6 +96,6 @@ const removeFromFavoriteList = async (userId, mediaId, mediaType) => {
 
 export {
   addToFavoriteList,
-  getFavoriteList,
+  getFavoriteListFromUser,
   removeFromFavoriteList
 }

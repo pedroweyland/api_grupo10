@@ -1,5 +1,5 @@
-import { request, response } from 'express'
-import {addToFavoriteList, getFavoriteList, removeFromFavoriteList} from '../database/favorite_list.js'
+import CustomError from '../utils/CustomError.js'
+import { addToFavoriteList, getFavoriteListFromUser, removeFromFavoriteList } from '../database/favorite_list.js'
 
 const postFavoriteList = async (request, response) => {
   try {
@@ -32,7 +32,7 @@ const postFavoriteList = async (request, response) => {
 const getFavoriteList = async (request, response) => {
   try {
     const { userId } = request.params
-    const favoriteList = await getFavoriteList(userId)
+    const favoriteList = await getFavoriteListFromUser(userId)
 
     response.status(200).json({
       status: 200,
