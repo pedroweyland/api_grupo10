@@ -36,8 +36,8 @@ Lists.init({
 
 }, {
   sequelize,
-  tableName: 'lists', // Especifica el nombre explícito de la tabla en la base de datos
-  timestamps: true // Agrega createdAt y updatedAt automáticamente
+  tableName: 'lists',
+  timestamps: false
 }
 )
 

@@ -2,7 +2,12 @@ import Media from '../database/media.js'
 
 const createMedia = async (mediaType, mediaData) => {
   // Verificar si el contenido existe en la tabla `media`
-  const mediaExists = await Media.findByPk(mediaData.id)
+  const mediaExists = await Media.findOne({
+    where: {
+      id_media_api: mediaData.id,
+      type: mediaType
+    }
+  })
   if (!mediaExists) {
     // Convertir la fecha a formato válido (YYYY-MM-DD)
     let releaseDate = mediaData.release_date || mediaData.first_air_date || null
@@ -16,7 +21,7 @@ const createMedia = async (mediaType, mediaData) => {
     }
     // Si no existe, agregarlo
     await Media.create({
-      id: mediaData.id,
+      id_media_api: mediaData.id,
       type: mediaType,
       title: mediaData.title || mediaData.name,
       original_title: mediaData.original_title || mediaData.original_name,

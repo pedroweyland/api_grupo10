@@ -3,9 +3,9 @@ import { addToWatchlist, getWatchlist, removeFromWatchlist } from '../service/wa
 
 export const postWatchlist = async (req = request, res = response) => {
   try {
-    const { userId, mediaId, mediaType } = req.body
+    const { userId, mediaApiId, mediaType } = req.body
 
-    const { item, mediaDetails } = await addToWatchlist({ userId, mediaId, mediaType })
+    const { item, mediaDetails } = await addToWatchlist({ userId, mediaApiId, mediaType })
 
     res.status(201).json({
       status: 201,
@@ -41,8 +41,8 @@ export const getUserWatchlist = async (req = request, res = response) => {
 
 export const deleteWatchlistItem = async (req = request, res = response) => {
   try {
-    const { userId, mediaId, mediaType } = req.body
-    const result = await removeFromWatchlist({ userId, mediaId, mediaType })
+    const { userId, mediaApiId, mediaType } = req.body
+    const result = await removeFromWatchlist({ userId, mediaApiId, mediaType })
 
     res.status(200).json({
       status: 200,
