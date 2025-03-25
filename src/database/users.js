@@ -40,6 +40,8 @@ Users.init({
   }
 }, {
   sequelize,
+  tableName: 'users',
+  timestamps: false,
   hooks: {
     beforeCreate: (user) => {
       const salt = bcrypt.genSaltSync()

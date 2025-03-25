@@ -1,13 +1,13 @@
 import Users from '../database/users.js'
 import Lists from '../database/lists.js'
-
+import Media from '../database/media.js'
 import { fetchSeriesDetails } from './series_details.js'
 import { fetchMovieDetails } from './movie_details.js'
 import CustomError from '../exceptions/customError.js'
 import createMedia from '../service/media_list.js'
 
-export const addToWatchlist = async ({ userId, mediaId, mediaType }) => {
-  if (!userId || !mediaId || !mediaType) {
+export const addToWatchlist = async ({ userId, mediaApiId, mediaType }) => {
+  if (!userId || !mediaApiId || !mediaType) {
     throw new CustomError('Missing required fields', 400)
   }
 
@@ -22,10 +22,10 @@ export const addToWatchlist = async ({ userId, mediaId, mediaType }) => {
   try {
     if (mediaType === 'movie') {
       // Obtener detalles de película
-      mediaData = await fetchMovieDetails(mediaId)
+      mediaData = await fetchMovieDetails(mediaApiId)
     } else {
       // Obtener detalles de serie
-      mediaData = await fetchSeriesDetails(mediaId)
+      mediaData = await fetchSeriesDetails(mediaApiId)
     }
   } catch (error) {
     throw new CustomError(`Error fetching ${mediaType} details: ${error.message}`, 404)
@@ -38,7 +38,7 @@ export const addToWatchlist = async ({ userId, mediaId, mediaType }) => {
   const existingItem = await Lists.findOne({
     where: {
       id_user: userId,
-      id_media: mediaId,
+      id_media: mediaApiId,
       type: 'watchlist'
     }
   })
@@ -48,17 +48,27 @@ export const addToWatchlist = async ({ userId, mediaId, mediaType }) => {
     throw new CustomError('Item already exists in the watchlist', 409)
   }
 
+  // Buscar el ID del elemento en la tabla `media`
+  const mediaId = await Media.findOne({
+    where: {
+      id_media_api: mediaData.id,
+      type: mediaType
+    }
+  })
+
   // Si no existe, agregar el elemento a la watchlist
   const item = await Lists.create({
     id_user: userId,
-    id_media: mediaId,
+    id_media: mediaId.id,
     type: 'watchlist'
   })
 
   return {
     item,
     mediaDetails: {
-      id: mediaId,
+      id: mediaId.id,
+      id_media_api: mediaApiId,
+      type: mediaType,
       title: mediaData.title || mediaData.name,
       original_title: mediaData.original_title || mediaData.original_name,
       overview: mediaData.overview,
@@ -82,15 +92,15 @@ export const getWatchlist = async (userId) => {
   return items
 }
 
-export const removeFromWatchlist = async ({ userId, mediaId, mediaType }) => {
-  if (!userId || !mediaId || !mediaType) {
+export const removeFromWatchlist = async ({ userId, mediaApiId, mediaType }) => {
+  if (!userId || !mediaApiId || !mediaType) {
     throw new CustomError('Missing required fields', 400)
   }
 
   // Crea la condición para eliminar
   const condition = {
     id_user: userId,
-    id_media: mediaId,
+    id_media: mediaApiId,
     type: 'watchlist'
   }
 
