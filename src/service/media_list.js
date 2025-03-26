@@ -25,7 +25,7 @@ const createMedia = async (mediaType, mediaData) => {
       type: mediaType,
       title: mediaData.title || mediaData.name,
       original_title: mediaData.original_title || mediaData.original_name,
-      release_date: mediaData.release_date || mediaData.first_air_date,
+      release_date: releaseDate,
       overview: mediaData.overview,
       poster_path: mediaData.poster_path,
       vote_average: mediaData.vote_average

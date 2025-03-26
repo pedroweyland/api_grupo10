@@ -34,11 +34,19 @@ export const addToWatchlist = async ({ userId, mediaApiId, mediaType }) => {
   // Insertar en la tabla `media` si no existe
   await createMedia(mediaType, mediaData)
 
+  // Buscar el ID del elemento en la tabla `media`
+  const media = await Media.findOne({
+    where: {
+      id_media_api: mediaApiId,
+      type: mediaType
+    }
+  })
+
   // Comprobar si ya existe el elemento en la lista
   const existingItem = await Lists.findOne({
     where: {
       id_user: userId,
-      id_media: mediaApiId,
+      id_media: media.id,
       type: 'watchlist'
     }
   })
@@ -48,35 +56,14 @@ export const addToWatchlist = async ({ userId, mediaApiId, mediaType }) => {
     throw new CustomError('Item already exists in the watchlist', 409)
   }
 
-  // Buscar el ID del elemento en la tabla `media`
-  const mediaId = await Media.findOne({
-    where: {
-      id_media_api: mediaData.id,
-      type: mediaType
-    }
-  })
-
   // Si no existe, agregar el elemento a la watchlist
   const item = await Lists.create({
     id_user: userId,
-    id_media: mediaId.id,
+    id_media: media.id,
     type: 'watchlist'
   })
 
-  return {
-    item,
-    mediaDetails: {
-      id: mediaId.id,
-      id_media_api: mediaApiId,
-      type: mediaType,
-      title: mediaData.title || mediaData.name,
-      original_title: mediaData.original_title || mediaData.original_name,
-      overview: mediaData.overview,
-      release_date: mediaData.release_date || mediaData.first_air_date,
-      poster_path: mediaData.poster_path,
-      vote_average: mediaData.vote_average
-    }
-  }
+  return item
 }
 
 export const getWatchlist = async (userId) => {
@@ -97,10 +84,32 @@ export const removeFromWatchlist = async ({ userId, mediaApiId, mediaType }) => 
     throw new CustomError('Missing required fields', 400)
   }
 
+  // Buscar el ID del elemento en la tabla `media`
+  const media = await Media.findOne({
+    where: {
+      id_media_api: mediaApiId,
+      type: mediaType
+    }
+  })
+
+  // Comprobar si ya existe el elemento en la lista
+  const existingItem = await Lists.findOne({
+    where: {
+      id_user: userId,
+      id_media: media.id,
+      type: 'watchlist'
+    }
+  })
+
+  if (existingItem) {
+    // Si ya existe, devolver un mensaje indicando que el elemento está en la watchlist
+    throw new CustomError('Item already exists in the watchlist', 409)
+  }
+
   // Crea la condición para eliminar
   const condition = {
     id_user: userId,
-    id_media: mediaApiId,
+    id_media: media.id,
     type: 'watchlist'
   }
 
