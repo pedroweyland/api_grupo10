@@ -35,7 +35,29 @@ Lists.init({
   }
 
 }, {
-  sequelize
+  sequelize,
+  tableName: 'lists',
+  timestamps: false
+}
+)
+
+// Relaciones
+Lists.belongsTo(User, {
+  foreignKey: {
+    name: 'id_user',
+    allowNull: false,
+    onDelete: 'CASCADE',
+    onUpdate: 'CASCADE'
+  }
+})
+
+Lists.belongsTo(Media, {
+  foreignKey: {
+    name: 'id_media',
+    allowNull: false,
+    onDelete: 'CASCADE',
+    onUpdate: 'CASCADE'
+  }
 })
 
 export default Lists

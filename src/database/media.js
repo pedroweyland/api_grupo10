@@ -9,6 +9,10 @@ Media.init({
     primaryKey: true,
     autoIncrement: true
   },
+  id_media_api: {
+    type: DataTypes.INTEGER,
+    allowNull: false
+  },
   type: {
     type: DataTypes.ENUM('movie', 'serie'),
     allowNull: false
@@ -38,7 +42,9 @@ Media.init({
     allowNull: true
   }
 }, {
-  sequelize
+  sequelize,
+  tableName: 'media',
+  timestamps: false
 }
 )
 
