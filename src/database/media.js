@@ -26,7 +26,7 @@ Media.init({
     allowNull: true
   },
   release_date: {
-    type: DataTypes.DATE,
+    type: DataTypes.DATEONLY,
     allowNull: true
   },
   overview: {

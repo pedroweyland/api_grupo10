@@ -71,10 +71,29 @@ export const getWatchlist = async (userId) => {
     throw new CustomError('User ID is required', 400)
   }
 
-  // Encuentra todos los elementos de la watchlist del usuario
+  // Encuentra todos los elementos de la watchlist del usuario junto con los detalles de la tabla media
   const items = await Lists.findAll({
-    where: { id_user: userId, type: 'watchlist' }
+    where: { id_user: userId, type: 'watchlist' },
+    include: [
+      {
+        model: Media,
+        attributes: [
+          'id_media_api',
+          'title',
+          'original_title',
+          'overview',
+          'poster_path',
+          'vote_average',
+          'release_date',
+          'type'
+        ]
+      }
+    ]
   })
+
+  if (!items || items.length === 0) {
+    throw new CustomError('Watchlist is empty', 404)
+  }
 
   return items
 }
@@ -101,9 +120,8 @@ export const removeFromWatchlist = async ({ userId, mediaApiId, mediaType }) => 
     }
   })
 
-  if (existingItem) {
-    // Si ya existe, devolver un mensaje indicando que el elemento está en la watchlist
-    throw new CustomError('Item already exists in the watchlist', 409)
+  if (!existingItem) {
+    throw new CustomError('Item not found in watchlist', 404)
   }
 
   // Crea la condición para eliminar
