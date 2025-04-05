@@ -2,24 +2,25 @@ import CustomError from '../exceptions/customError.js'
 import { addToFavoriteList, getFavoriteListFromUser, removeFromFavoriteList } from '../service/favorite_list.js'
 
 const postFavoriteList = async (request, response) => {
+  /* eslint-disable camelcase */
   try {
-    const { userId, mediaApiId, mediaType } = request.body
+    const { id_user, id_media_api, media_type } = request.body
 
-    if (!userId) {
+    if (!id_user) {
       throw new CustomError('User id is required', 400)
     }
-    if (!mediaApiId) {
+    if (!id_media_api) {
       throw new CustomError('Media api id is required', 400)
     }
-    if (!mediaType) {
+    if (!media_type) {
       throw new CustomError('Media type is required', 400)
     }
 
-    const favoriteItem = await addToFavoriteList(userId, mediaApiId, mediaType)
+    const favoriteItem = await addToFavoriteList(id_user, id_media_api, media_type)
 
     response.status(201).json({
       status: 201,
-      message: favoriteItem
+      data: favoriteItem
     })
   } catch (error) {
     response.status(error.status || 500).json({
@@ -27,16 +28,18 @@ const postFavoriteList = async (request, response) => {
       message: error.message || 'Internal server error'
     })
   }
+  /* eslint-enable camelcase */
 }
 
 const getFavoriteList = async (request, response) => {
+  /* eslint-disable camelcase */
   try {
     const { userId } = request.params
     const favoriteList = await getFavoriteListFromUser(userId)
 
     response.status(200).json({
       status: 200,
-      message: favoriteList
+      data: favoriteList
     })
   } catch (error) {
     response.status(error.status || 500).json({
@@ -44,27 +47,29 @@ const getFavoriteList = async (request, response) => {
       message: error.message || 'Internal server error'
     })
   }
+  /* eslint-enable camelcase */
 }
 
 const deleteFavoriteList = async (request, response) => {
+  /* eslint-disable camelcase */
   try {
-    const { userId, mediaApiId, mediaType } = request.body
+    const { id_user, id_media_api, media_type } = request.body
 
-    if (!userId) {
+    if (!id_user) {
       throw new CustomError('Email is required', 400)
     }
-    if (!mediaApiId) {
+    if (!id_media_api) {
       throw new CustomError('Username is required', 400)
     }
-    if (!mediaType) {
+    if (!media_type) {
       throw new CustomError('Password is required', 400)
     }
 
-    const result = await removeFromFavoriteList(userId, mediaApiId, mediaType)
+    const result = await removeFromFavoriteList(id_user, id_media_api, media_type)
 
     response.status(200).json({
       status: 200,
-      message: result
+      data: result
     })
   } catch (error) {
     response.status(error.status || 500).json({
@@ -72,6 +77,7 @@ const deleteFavoriteList = async (request, response) => {
       message: error.message || 'Internal server error'
     })
   }
+  /* eslint-enable camelcase */
 }
 
 export {

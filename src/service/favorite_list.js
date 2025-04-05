@@ -70,12 +70,25 @@ const getFavoriteListFromUser = async (userId) => {
       throw new CustomError(`User with id ${userId} not found`, 404)
     }
 
-    const favoriteList = await Lists.findAll({
+    let favoriteList = await Lists.findAll({
       where: {
         id_user: userId,
         type: 'favorite'
       }
     })
+
+    favoriteList = await Promise.all(
+      favoriteList.map(async (item) => {
+        const media = await Media.findByPk(item.id_media)
+        return {
+          id: item.id,
+          id_user: item.id_user,
+          id_media: item.id_media,
+          type: item.type,
+          media_details: media
+        }
+      })
+    )
 
     return favoriteList
   } catch (error) {
