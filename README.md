@@ -210,6 +210,76 @@ Endpoint movie details (GET)
     -vote_average: Float
     -vote_count: Int
 
+Endpoint favorite list (POST)
+
+    Descripcion:
+    Este endpoint agrega a la lista de favoritos del usuario una pelicula o serie. Si la pelicula o serie no esta en la base de datos local, la agrega.
+
+    URL:
+    api/v1/lists/favorite/
+
+    Posibles Status Code:
+    -201: Created (Cuando se agrega la serie o pelicula a la lista de favoritos del usuario)
+    -400: Bad Request (Cuando un error inesperado ocurre)
+    -500: Internal Server Error (Cuando hay un fallo del servidor)
+
+    Datos a ingresar:
+    -id_user: int
+    -id_media_api: int
+    -media_type: string
+
+    Estructura de datos de salida:
+    -id: int
+    -id_user: int
+    -id_media: int
+    -type: string
+
+Endpoint favorite list (GET)
+
+    Descripcion:
+    Este endpoint obtiene una lista con todas las peliculas y series que hayan sido marcadas como favoritos por el usuario.
+
+    URL:
+    api/v1/lists/favorite/<id_user>
+
+    Posibles Status Code:
+    -200: OK (Cuando la consulta es exitosa)
+    -500: Internal Server Error (Cuando hay un fallo del servidor)
+
+    Estructura de datos de cada serie o pelicula:
+    -id: int
+    -id_user: int
+    -id_media: int
+    -type: string
+    -media details
+        id: int
+        id_media_api: int
+        type: string
+        title: string
+        original_title: string
+        release_date: string
+        overview: string
+        poster_path: string
+        vote_average: double
+    
+Endpoint favorite list (DELETE)
+
+    Descripcion:
+    Este endpoint elimina de la lista de favoritos del usuario una pelicula o serie.
+
+    URL:
+    api/v1/lists/favorite/
+
+    Posibles Status Code:
+    -200: OK (Cuando la consulta es exitosa)
+    -400: Bad Request (Cuando un error inesperado ocurre)
+    -500: Internal Server Error (Cuando hay un fallo del servidor)
+
+    Datos a ingresar:
+    -id_user: int
+    -id_media_api: int
+    -media_type: string
+
 ---------- Pedro Weyland ----------
 
 EndPoint upcoming (GET)
