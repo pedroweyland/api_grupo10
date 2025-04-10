@@ -73,6 +73,45 @@ Endpoint series details (GET)
     -vote_average: Float
     -vote_count: Int
 
+Endpoint watchlist (GET):
+
+    Descripcion:
+    Este endpoint devuelve la lista de peliculas que estan en la watchlist del usuario.
+    
+    URL:
+    api/v1/lists/watchlist/:userId
+    
+    Posibles Status Code:
+    -200: OK (Cuando la lista es obtenida correctamente)
+    -400: Bad Request (Cuando un error inesperado ocurre)
+    -404: Not Found (Cuando no se encuentra la pagina recibida por el usuario)
+
+Endpoint add to watchlist (POST):
+    Descripcion:
+    Este endpoint agrega una pelicula a la watchlist del usuario.
+    
+    URL:
+    api/v1/lists/watchlist
+    
+    Posibles Status Code:
+    -200: OK (Cuando la pelicula es agregada correctamente)
+    -400: Bad Request (Cuando un error inesperado ocurre)
+    -404: Not Found (Cuando no se encuentra la pagina recibida por el usuario)
+    
+Endpoint remove from watchlist (DELETE):
+    
+    Descripcion:
+    Este endpoint elimina una pelicula de la watchlist del usuario.
+    
+    URL:
+    api/v1/lists/watchlist
+
+    Posibles Status Code:
+    -200: OK (Cuando la pelicula es eliminada correctamente)
+    -400: Bad Request (Cuando un error inesperado ocurre)
+    -404: Not Found (Cuando no se encuentra la pagina recibida por el usuario)
+
+
 ---------- Gabriel Ponce ----------
 
 **Endpoints personas populares (GET)**
