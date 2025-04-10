@@ -320,3 +320,39 @@ EndPoint Creditos (GET)
     - profile_path          -> String
     - character             -> String
     - order                 -> Int
+
+EndPoint Register usuario (POST)
+
+    Descripcion:
+    - Este EndPoint sirve para crear usuarios en nuestra base de datos propia, a la hora de consultar este EndPoint vamos a tener que mandar un JSON que contenga los datos necesarios para poder registrar dicho usuario, este JSON tiene que contener los siguientes datos: 'username', 'email' y 'password' (La contraseña se guardara encriptada en la base de datos)
+
+    URL:
+    - /api/v1/auth/register
+
+    Posibles Status Code:
+    - 200: Ok (Se creo correctamente el usuario y nos retorna dicho usuario creado)  
+    - 400: Bad Request (Posibles errores: Email existente, Username existente, contraseña con longitud menor a 8 caracteres)
+
+    Cada elementos de los usuarios tiene la siguiente estuctura
+
+    - id                                  -> Int
+    - username                            -> String
+    - email                               -> String
+    - password (Se encuentra encriptada)  -> String
+    - firstName                           -> String
+    - lastName                            -> String
+    - phone                               -> String
+    - address                             -> String
+
+EndPoint Update usuario (PUT)
+
+    Descripcion:
+    - Este EndPoint sirve para actualizar el usuario deseado, a la hora de consultar este EndPoint vamos a tener que mandar un JSON que contenga los datos necesarios para poder actualizar dicho usuario, este JSON tiene que contener si o si el 'id' al usuario que se va a modificar, luego se puede decidir que dato se puede modificar 'username', 'firstName', 'lastName', 'phone' y 'address'
+
+    URL:
+    - /api/v1/auth/update
+
+    Posible Status Code:
+    - 200: Ok (Se modifico correctamente el usuario y nos retorna dicho usuario)
+    - 400: Bad Request (Nombre de usuario existente)
+    - 404: Not Found (No se encontro el usuario a modificar)
