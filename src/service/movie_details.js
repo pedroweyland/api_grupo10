@@ -2,7 +2,7 @@ import axios from 'axios'
 
 const fetchMovieDetails = async (idMovie) => {
   try {
-    const response = await axios.get(`${process.env.url}movie/${idMovie}`, {
+    const response = await axios.get(`${process.env.URL}movie/${idMovie}`, {
       params: {
         api_key: process.env.API_KEY
       }

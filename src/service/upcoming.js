@@ -4,7 +4,7 @@ const fetchUpcoming = async (queryParams) => {
   const filter = queryParams.length > 0 ? `?${queryParams.join('&')}` : ''
 
   try {
-    const response = await axios.get(`${process.env.url}movie/upcoming${filter}`, {
+    const response = await axios.get(`${process.env.URL}movie/upcoming${filter}`, {
       params: {
         api_key: process.env.API_KEY
       }
@@ -25,7 +25,7 @@ const fetchUpcoming = async (queryParams) => {
 
 const fetchMovieCredits = async (idMovie) => {
   try {
-    const response = await axios.get(`${process.env.url}movie/${idMovie}/credits`, {
+    const response = await axios.get(`${process.env.URL}movie/${idMovie}/credits`, {
       params: {
         api_key: process.env.API_KEY
       }

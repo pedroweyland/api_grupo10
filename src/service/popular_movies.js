@@ -4,7 +4,7 @@ const fetchPopularMovies = async (queryParams) => {
   const filter = queryParams.length > 0 ? `?${queryParams.join('&')}` : ''
 
   try {
-    const response = await axios.get(`${process.env.url}movie/popular${filter}`, {
+    const response = await axios.get(`${process.env.URL}movie/popular${filter}`, {
       params: {
         api_key: process.env.API_KEY
       }
