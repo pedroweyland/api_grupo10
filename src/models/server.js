@@ -2,6 +2,7 @@ import User from '../database/users.js'
 import Lists from '../database/lists.js'
 import Media from '../database/media.js'
 import express from 'express'
+import cors from 'cors'
 import seriesRoutes from '../routes/series.js'
 import peopleRoutes from '../routes/people.js'
 import movieRoutes from '../routes/movies.js'
@@ -18,6 +19,7 @@ class Server {
   }
 
   middleware () {
+    this.app.use(cors())
     this.app.use(express.static('public'))
     this.app.use(express.json())
   }
