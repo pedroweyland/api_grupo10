@@ -138,6 +138,28 @@ Estructura de datos detalles de personas:
 -popularity: number
 -profile_path: string
 
+**Endpoint Login (POST)**
+    Descripcion: 
+    - Este endpoint permite al usuario loguearse en la aplicacion. El usuario debe proveer su email y password.
+    - El usuario creado debe tener un email unico y un password de al menos 8 caracteres.
+    
+    URL: 
+    -/api/v1/auth/login
+
+    Status Code:
+    -200: OK (Cuando el usuario se loguea correctamente)
+    -404: Not Found (Cuando no se encuentra el usuario)
+
+    Estructura de datos de usuario:
+    -id: Int
+    -email: String
+    -username: String
+    -password: String
+    -firstname: String
+    -lastname: String
+    -phone: String
+    -address: String
+
 
 ---------- Galo Santopietro ----------
 
