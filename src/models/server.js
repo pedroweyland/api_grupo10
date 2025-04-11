@@ -19,8 +19,19 @@ class Server {
   }
 
   middleware () {
-    // Configura CORS
-    this.app.use(cors())
+    // Configuración mejorada de CORS para producción/desarrollo
+    const corsOptions = {
+      origin: [
+        process.env.FRONTEND_URL, // URL de tu frontend en producción
+        'http://localhost:3000', // Desarrollo local
+        'http://127.0.0.1:3000' // Alternativa local
+      ],
+      methods: ['GET', 'POST', 'PUT', 'DELETE', 'PATCH', 'OPTIONS'],
+      allowedHeaders: ['Content-Type', 'Authorization'],
+      credentials: true // Si necesitas enviar cookies/tokens
+    }
+
+    this.app.use(cors(process.env.NODE_ENV === 'production' ? corsOptions : {}))
     this.app.use(express.static('public'))
     this.app.use(express.json())
   }
