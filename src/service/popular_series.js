@@ -2,7 +2,8 @@ import axios from 'axios'
 
 const fetchPopularSeries = async (queryParams) => {
   const filter = queryParams.length > 0 ? `?${queryParams.join('&')}` : ''
-
+  console.log('La URL:', process.env.URL)
+  console.log('La API_KEY:', process.env.API_KEY)
   try {
     const response = await axios.get(`${process.env.URL}tv/popular${filter}`, {
       params: {
