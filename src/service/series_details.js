@@ -4,7 +4,7 @@ const fetchSeriesDetails = async (seriesId) => {
   try {
     const response = await axios.get(`${process.env.URL}tv/${seriesId}`, {
       params: {
-        api_key: process.env.API_KEY
+        api_key: process.env.API_KEY_TMDB
       }
     })
     return response.data

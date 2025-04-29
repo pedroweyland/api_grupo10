@@ -4,7 +4,7 @@ const fetchMovieDetails = async (idMovie) => {
   try {
     const response = await axios.get(`${process.env.URL}movie/${idMovie}`, {
       params: {
-        api_key: process.env.API_KEY
+        api_key: process.env.API_KEY_TMDB
       }
     })
 

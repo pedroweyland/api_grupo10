@@ -6,7 +6,7 @@ const fetchPopularPeople = async (queryParams) => {
   try {
     const response = await axios.get(`${process.env.URL}person/popular${filter}`, {
       params: {
-        api_key: process.env.API_KEY
+        api_key: process.env.API_KEY_TMDB
       }
     })
     if (response.data.results.length === 0) {

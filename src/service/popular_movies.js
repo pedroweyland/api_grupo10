@@ -6,7 +6,7 @@ const fetchPopularMovies = async (queryParams) => {
   try {
     const response = await axios.get(`${process.env.URL}movie/popular${filter}`, {
       params: {
-        api_key: process.env.API_KEY
+        api_key: process.env.API_KEY_TMDB
       }
     })
 

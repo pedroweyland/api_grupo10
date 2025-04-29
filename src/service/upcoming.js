@@ -6,7 +6,7 @@ const fetchUpcoming = async (queryParams) => {
   try {
     const response = await axios.get(`${process.env.URL}movie/upcoming${filter}`, {
       params: {
-        api_key: process.env.API_KEY
+        api_key: process.env.API_KEY_TMDB
       }
     })
 
@@ -27,7 +27,7 @@ const fetchMovieCredits = async (idMovie) => {
   try {
     const response = await axios.get(`${process.env.URL}movie/${idMovie}/credits`, {
       params: {
-        api_key: process.env.API_KEY
+        api_key: process.env.API_KEY_TMDB
       }
     })
 

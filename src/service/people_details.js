@@ -4,7 +4,7 @@ const fetchPeopleDetails = async (idPerson) => {
   try {
     const response = await axios.get(`${process.env.URL}person/${idPerson}`, {
       params: {
-        api_key: process.env.API_KEY
+        api_key: process.env.API_KEY_TMDB
       }
     })
     return response.data
